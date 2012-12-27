@@ -60,6 +60,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     private int mTouchSlop;
     private float mLastMotionX = -1;
+    private int mMinPageCountForShowing = 1;
     private int mActivePointerId = INVALID_POINTER;
     private boolean mIsDragging;
 
@@ -194,6 +195,10 @@ public class CirclePageIndicator extends View implements PageIndicator {
         return mSnap;
     }
 
+    public void setMinPageCountForShowing(int pageCount){
+        mMinPageCountForShowing = pageCount;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -202,7 +207,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             return;
         }
         final int count = mViewPager.getAdapter().getCount();
-        if (count == 0) {
+        if (count < mMinPageCountForShowing) {
             return;
         }
 
